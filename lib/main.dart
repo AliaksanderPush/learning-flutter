@@ -1,24 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home_screen.dart';
-import 'package:flutter_app/weather_screen.dart';
+import 'package:flutter_app/home_page.dart';
+import 'package:flutter_app/profile_page.dart';
 
-void main() {
-  runApp(MaterialApp(
-      home: const HomeScreen(),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (context) => const HomeScreen());
-          case '/weather':
-            return MaterialPageRoute(
-                builder: (context) => const WeatherScreen());
-        }
-      }));
-}
-
-
-
-/*
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,54 +10,47 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Первый экран'),
-          centerTitle: true,
-        ),
-        body: const HomePage(),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.green),
+      home: const RootPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class RootPage extends StatefulWidget {
+  const RootPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          Route route =
-              MaterialPageRoute(builder: (context) => const SecondPage());
-          Navigator.push(context, route);
-        },
-        child: const Text('Go to SecondPage'),
-      ),
-    );
-  }
+  State<RootPage> createState() => _RootPageState();
 }
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
+class _RootPageState extends State<RootPage> {
+  int currentPage = 0;
+  List<Widget> pages = [const HomePage(), const ProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Return'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back'),
+        appBar: AppBar(
+          title: const Text('Flutter'),
         ),
-      ),
-    );
+        body: pages[currentPage],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            debugPrint('page=> $currentPage');
+          },
+          child: const Icon(Icons.add),
+        ),
+        bottomNavigationBar: NavigationBar(
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          ],
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPage = index;
+            });
+          },
+          selectedIndex: currentPage,
+        ));
   }
 }
-*/
