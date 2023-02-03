@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/home_screen.dart';
+import 'package:flutter_app/weather_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+      home: const HomeScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const HomeScreen());
+          case '/weather':
+            return MaterialPageRoute(
+                builder: (context) => const WeatherScreen());
+        }
+      }));
 }
+
+
+
+/*
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -60,3 +76,4 @@ class SecondPage extends StatelessWidget {
     );
   }
 }
+*/
