@@ -1,8 +1,11 @@
-class Transactions {
-  final String id;
-  final String title;
-  final double amount;
-  final DateTime date;
+class CryptoCoin {
+  const CryptoCoin({
+    required this.name,
+    required this.priceInUSD,
+    required this.imageUrl,
+  });
 
-  Transactions(this.id, this.title, this.amount, this.date);
+  final String name;
+  final double priceInUSD;
+  final String imageUrl;
 }

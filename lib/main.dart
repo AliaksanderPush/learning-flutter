@@ -1,56 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home_page.dart';
-import 'package:flutter_app/profile_page.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const CryptoCurrencyListApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CryptoCurrencyListApp extends StatelessWidget {
+  const CryptoCurrencyListApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
-      home: const RootPage(),
+      title: 'List',
+      theme: ThemeData(
+          primarySwatch: Colors.yellow,
+          textTheme: const TextTheme(
+              bodyMedium: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24))),
+      home: const MyHomePage(title: 'CryptoList'),
     );
   }
 }
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
 
+  final String title;
   @override
-  State<RootPage> createState() => _RootPageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _RootPageState extends State<RootPage> {
-  int currentPage = 0;
-  List<Widget> pages = [const HomePage(), const ProfilePage()];
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Flutter'),
+          title: Text(this.title),
         ),
-        body: pages[currentPage],
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            debugPrint('page=> $currentPage');
-          },
-          child: const Icon(Icons.add),
-        ),
-        bottomNavigationBar: NavigationBar(
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPage = index;
-            });
-          },
-          selectedIndex: currentPage,
-        ));
+        body: ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, i) => const ListTile(
+                    title: Text(
+                  'Bitkoin',
+                ))));
   }
 }
