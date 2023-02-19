@@ -1,47 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/router/route.dart';
+import 'package:flutter_app/theme/theme.dart';
 
-void main() => runApp(const CryptoCurrencyListApp());
+void main() => runApp(const App());
 
-class CryptoCurrencyListApp extends StatelessWidget {
-  const CryptoCurrencyListApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'List',
-      theme: ThemeData(
-          primarySwatch: Colors.yellow,
-          textTheme: const TextTheme(
-              bodyMedium: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24))),
-      home: const MyHomePage(title: 'CryptoList'),
+      theme: darkTheme,
+      routes: routes,
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(this.title),
-        ),
-        body: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, i) => const ListTile(
-                    title: Text(
-                  'Bitkoin',
-                ))));
   }
 }
