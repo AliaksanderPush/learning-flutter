@@ -1,19 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/router/route.dart';
-import 'package:flutter_app/theme/theme.dart';
+import 'package:flutter_app/repositories/cripto_coin_repository.dart';
+import 'package:get_it/get_it.dart';
+import 'crypto_coin_list.dart';
+import 'repositories/abstract_coins_repository.dart';
 
-void main() => runApp(const App());
+void main() {
+  GetIt.I.registerLazySingleton<AbstractCoinsRepository>(
+    () => CriptoCoinRepository(dio: Dio()),
+  );
 
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'List',
-      theme: darkTheme,
-      routes: routes,
-    );
-  }
+  runApp(const CriptoCurrenciesListApp());
 }

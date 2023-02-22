@@ -1,6 +1,7 @@
+import 'package:get_it/get_it.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/repositories/cripto_coin/cripto_coin_repository.dart';
-import '../../../repositories/models/cripto_coin.dart';
+import '../../../repositories/abstract_coins_repository.dart';
+import '../../../repositories/cripto_coin.dart';
 import '../widgets/cripto_coin_tile.dart';
 
 class CryptoListScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
   }
 
   Future<void> _loadCoinList() async {
-    _criptoCoinList = await CriptoCoinRepository().getCoinList();
+    _criptoCoinList = await GetIt.I<AbstractCoinsRepository>().getCoinList();
     setState(() {});
   }
 }
